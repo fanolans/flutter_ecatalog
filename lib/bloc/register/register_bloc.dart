@@ -13,19 +13,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc(
     this.datasource,
   ) : super(RegisterInitial()) {
-    on<DoRegisterEvent>(
-      (event, emit) async {
-        emit(RegisterLoading());
-        final result = await datasource.register(event.model);
-        result.fold(
-          (error) {
-            emit(RegisterError(message: error));
-          },
-          (data) {
-            emit(RegisterLoaded(model: data));
-          },
-        );
-      },
-    );
+    on<DoRegisterEvent>((event, emit) async {
+      emit(RegisterLoading());
+      final result = await datasource.register(event.model);
+      result.fold((error) {
+        emit(RegisterError(message: error));
+      }, (succsess) {
+        emit(RegisterLoaded(model: succsess));
+      });
+    });
   }
 }
