@@ -6,9 +6,9 @@ class RegisterInitial extends RegisterState {}
 
 class RegisterLoading extends RegisterState {}
 
-class RegisteLoaded extends RegisterState {
+class RegisterLoaded extends RegisterState {
   final RegisterResponseModel model;
-  RegisteLoaded({
+  RegisterLoaded({
     required this.model,
   });
 }

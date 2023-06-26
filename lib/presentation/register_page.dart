@@ -94,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   );
                 }
-                if (state is RegisteLoaded) {
+                if (state is RegisterLoaded) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -102,17 +102,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       backgroundColor: Colors.green,
                     ),
                   );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const LoginPage();
-                      },
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const LoginPage();
+                  }));
                 }
               },
             ),
+            const SizedBox(height: 16),
+            InkWell(
+              child: const Text('Sudah punya akun? Login'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return const LoginPage();
+                }));
+              },
+            )
           ],
         ),
       ),

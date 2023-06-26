@@ -22,7 +22,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             emit(RegisterError(message: error));
           },
           (data) {
-            emit(RegisteLoaded(model: data));
+            emit(RegisterLoaded(model: data));
           },
         );
       },
