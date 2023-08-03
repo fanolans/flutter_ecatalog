@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecatalog/data/datasources/local_datasource.dart';
 import 'package:flutter_ecatalog/presentation/home_page.dart';
+import 'package:flutter_ecatalog/presentation/register_page.dart';
 
 import '../bloc/login/login_bloc.dart';
 import '../data/models/request/login_request_model.dart';
@@ -18,9 +20,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    checkAuth();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     super.initState();
+  }
+
+  void checkAuth() async {
+    final auth = await LocalDataSource().getToken();
+    if (auth.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(
+        builder: (_) {
+          return const HomePage();
+        },
+      ));
+    }
   }
 
   @override
@@ -87,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 }
                 if (state is LoginLoaded) {
+                  LocalDataSource().saveToken(state.model.accessToken);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -100,6 +116,17 @@ class _LoginPageState extends State<LoginPage> {
                 }
               },
             ),
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (_) {
+                    return const RegisterPage();
+                  },
+                ));
+              },
+              child: const Text('Belum punya akun? Daftar'),
+            )
           ],
         ),
       ),
