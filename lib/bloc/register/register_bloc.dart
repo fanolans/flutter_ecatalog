@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_ecatalog/data/models/datasources/auth_datasource.dart';
+import 'package:flutter_ecatalog/data/datasources/auth_datasource.dart';
 
 import '../../data/models/request/register_request_model.dart';
 import '../../data/models/response/register_response_model.dart';
